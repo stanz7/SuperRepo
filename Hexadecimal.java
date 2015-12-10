@@ -2,7 +2,7 @@
 //APCS1 pd 5
 //HW44 This or That or Fourteen Other Things
 //2015 - 12 - 08
-public class Hexadecimal {
+class Hexadecimal implements Comparable {
     private final static String HEXDIGITS = "0123456789ABCDEF";
     private String _hexNum;
     private int _decNum;
@@ -62,10 +62,15 @@ public class Hexadecimal {
       =========================*/
     public static int hexToDec( String s ) {
 	int x = 0;
+	try{
 	for( int i = 0; i < s.length(); i++ ) {
 	    char c = s.charAt( i );
 	    int d = HEXDIGITS.indexOf( c );
 	    x = 16 * x + d;
+	}
+	}
+	catch (NullPointerException e){
+	    System.out.println("Nulllll");
 	}
 	return x;
     }
@@ -86,8 +91,13 @@ public class Hexadecimal {
     public static int hexToDecR( String s ) { 
 
 	int n = Integer.parseInt(s);
-	if( n == 0 )
+	try{
+	    if( n == 0 )
 	    return 0;
+	}	
+	catch (NullPointerException e){
+	    System.out.println("n u l l");
+	}
 	return 16 * hexToDecR( "" + n/10 ) + n%10;
 	
     }

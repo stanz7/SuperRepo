@@ -3,7 +3,7 @@
    HW 33 -- Do You Even Add, Bro?
    2015-11-17 */
 
-public class Rational{
+public class Rational implements Comparable{
 
     public double numerator, denominator, number;
     

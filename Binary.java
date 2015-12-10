@@ -2,7 +2,7 @@
 
 //skeleton file for class Binary
 
-public class Binary {
+public class Binary implements Comparable {
 
     private int _decNum;
     private String _binNum;
@@ -36,8 +36,13 @@ public class Binary {
 		        post: sets _binNum to input, _decNum to decimal equiv
 			=====================================*/
     public Binary( String s ) {
-	_decNum = binToDec(s);
-	_binNum = s;
+	try{	
+	    _decNum = binToDec(s);
+	    _binNum = s;
+	}
+	catch (NullPointerException e){
+	    System.out.println("null");
+	}
     }
 
 
@@ -120,14 +125,19 @@ public class Binary {
 	int placeVal=0;
 
 	//iterate L->R, adding each digit*place value
-	for( int i=0; i < s.length(); i++ ) {
-	    placeVal = s.length() - 1 - i;
-	    decVal += Integer.parseInt( s.substring(i,i+1) )
-		* Math.pow(2,placeVal);
+	try{
+	    for( int i=0; i < s.length(); i++ ) {
+		placeVal = s.length() - 1 - i;
+		decVal += Integer.parseInt( s.substring(i,i+1) )
+		    * Math.pow(2,placeVal);
+	    }
 	}
-
-	return decVal;
-    }
+	catch (NullPointerException e){
+	    System.out.println("Null!");
+	}
+	    
+	    return decVal;
+	}
 
 
 
@@ -146,8 +156,14 @@ public class Binary {
     public static int binToDecR( String s ) {
 
 	int n = Integer.parseInt(s);
+	try{
 	if( n == 0 )
 	    return 0;
+	}
+    
+    catch (NullPointerException e) {
+	System.out.println("null");
+    }
 	return 2 * binToDecR( "" + n/10 ) + n%10;
 
     }
@@ -179,20 +195,17 @@ public class Binary {
 			      negative integer if this<input, positive integer otherwise
 			      =============================================*/
     public int compareTo( Object other ) {
-
-	Binary otherbin = (Binary)(other);
-	int dif = this._decNum - otherbin._decNum;
-	if (dif > 0) {
-	    return 1;
+	if (! ( other instanceof Binary) ) {
+	    throw new ClassCastException( "\nMy first error message!" + "compareTo() input not a Binary.");
 	}
-	else if (dif == 0) {
-	    return 0;
-	}
-	else {
-	    return -1;
-	}
-
+	if (this.equals((Binary)other)) {
+	    return 0; }
+	else if (this._decNum < ((Binary)other)._decNum) {
+	    return -1; }
+	else return 1;
     }
+    
+     
 
 
     //main method for testing
@@ -230,4 +243,4 @@ public class Binary {
 
     }//End main()
 
-} //end class
+ //end class
